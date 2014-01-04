@@ -3,7 +3,8 @@
 #********* by Djordje Spasic ***************************************#
 #********* issworld2000@yahoo.com  24-12-2013 **********************#
 """
-Function populates surfaces, polysurfaces and extrusions with projected regular grid of points, and assign it's elevation as annotation text dot
+Function populates surfaces, polysurfaces and extrusions with projected regular grid of points,
+and assign it's elevation as annotation text dot
 """
 
 import rhinoscriptsyntax as rs
