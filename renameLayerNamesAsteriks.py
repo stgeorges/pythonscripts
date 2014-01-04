@@ -122,7 +122,7 @@ def renameLayers(_originalLayersList, _newLayersList):
 find = rs.StringBox("Which part of your Layer's name do you want to replace?",None,"Find")
 replace = rs.StringBox("Replace with?",None,"Replace")
 if find and replace:
-    # comment out line 122 if you want to remove the Message box:
+    # comment out line 126 if you want to remove the Message box:
     layersLevelInfo = rs.MessageBox("At what level do you want to replace your layer names?\n \n- Choose some of the following numbers:\nparent layers level: 0\nsub-layers level: 1\nsub-sub-layers level: 2\n \n- Combinations (always from lower level to higher):\nreplace layer names at all levels: 210\nreplace only at parent level: 0\nreplace only at sub-sub and parent: 20\nreplace at sub-sub and sub: 21\netc.", 64)
     layersLevelInput = int(rs.StringBox("Enter the level code (210 will cover all levels):","210","Layers level code"))
     if layersLevelInput:
