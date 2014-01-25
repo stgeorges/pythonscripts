@@ -3,6 +3,26 @@
 #********* by Djordje Spasic ***************************************************************#
 #********* issworld2000@yahoo.com 25-01-2014 ***********************************************#
 
+"""
+Function promts for user input on picking solid(s), and choosing their Material. Then asks for the name/location
+where the .csv file will be saved. Exported .csv file consists of following information: Object number, Volume,
+Mass, Weight, Volume Centroid coordinates.
+
+Additinally labels of object's number's and volume centroid points are added to the Rhino file.
+
+Depending on Rhino unit system, data will be exported with following units:
+
+    units: Millimeters: length(mm), volume(mm3), mass(g), weight(N - Newtons)
+    units: Centimeters: length(cm), volume(cm3), mass(g), weight(N)
+    units: Meters: length(m), volume(m3), mass(kg), weight(N)
+    units: Inches: length(in), volume(in3), mass(oz - ounce), weight(N)
+    units: Feets: length(ft), volume(ft3), mass(lb), weight(N)
+
+
+Author does not guarantee the script will work. Use it at your own risk. Author assumes no 
+responsibility if the script harms you, your system, or your applications!!!
+"""
+
 
 import rhinoscriptsyntax as rs
 
@@ -120,5 +140,5 @@ def VolumeMassWeightCentroids(_materials, _densities):
         print "You did not choose appropriate or any objects. Function terminated."
         return
 
-
+# function call
 VolumeMassWeightCentroids(materials, densities)
