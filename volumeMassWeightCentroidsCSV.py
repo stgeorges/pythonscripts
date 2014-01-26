@@ -12,11 +12,11 @@ Additionally labels of object's number's and volume centroid points are added to
 
 Depending on Rhino unit system, data will be exported with following units:
 
-    units: Millimeters: length(mm), volume(mm3), mass(g), weight(N - Newtons)
-    units: Centimeters: length(cm), volume(cm3), mass(g), weight(N)
-    units: Meters: length(m), volume(m3), mass(kg), weight(N)
-    units: Inches: length(in), volume(in3), mass(oz - ounce), weight(N)
-    units: Feets: length(ft), volume(ft3), mass(lb), weight(N)
+    units: Millimeters:  length(mm), volume(mm3), mass(g), weight(N - Newtons)
+    units: Centimeters:  length(cm), volume(cm3), mass(g), weight(N)
+    units: Meters:  length(m), volume(m3), mass(kg), weight(N)
+    units: Inches:  length(in), volume(in3), mass(oz - ounce), weight(N)
+    units: Feets:  length(ft), volume(ft3), mass(lb), weight(N)
 
 
 Author does not guarantee the script will work. Use it at your own risk. Author assumes no 
