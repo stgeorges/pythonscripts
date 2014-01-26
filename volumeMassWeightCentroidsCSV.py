@@ -8,7 +8,7 @@ Function promts for user input on picking solid(s), and choosing their Material.
 where the .csv file will be saved. Exported .csv file consists of following information: Object number, Volume,
 Mass, Weight, Volume Centroid coordinates.
 
-Additinally labels of object's number's and volume centroid points are added to the Rhino file.
+Additionally labels of object's number's and volume centroid points are added to the Rhino file.
 
 Depending on Rhino unit system, data will be exported with following units:
 
