@@ -137,7 +137,7 @@ def VolumeMassWeightCentroids(_materials, _densities):
             return
 
     else:
-        print "You did not choose appropriate or any objects. Function terminated."
+        print "You did not choose appropriate or any objects. Function terminated"
         return
 
 # function call
