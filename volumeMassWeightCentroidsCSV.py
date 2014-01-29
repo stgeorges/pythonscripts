@@ -1,14 +1,14 @@
 #*******************************************************************************************#
 #********* Export volume, mass, weight and volume centroid coordinates to .csv file ********#
 #********* by Djordje Spasic ***************************************************************#
-#********* issworld2000@yahoo.com 25-01-2014 ***********************************************#
+#********* issworld2000@yahoo.com 28-01-2014 ***********************************************#
 
 """
 Function promts for user input on picking solid(s), and choosing their Material. Then asks for the name/location
 where the .csv file will be saved. Exported .csv file consists of following information: Object number, Volume,
 Mass, Weight, Volume Centroid coordinates.
 
-Additionally labels of object's number's and volume centroid points are added to the Rhino file.
+Function additionally labels object names or numbers(if names were not set) and volume centroid points to Rhino file.
 
 Depending on Rhino unit system, data will be exported with following units:
 
@@ -107,23 +107,26 @@ def VolumeMassWeightCentroids(_materials, _densities):
                     centroids.append(centr)
     
                 # export data to csv file
-                filename = rs.SaveFileName("Save csv file","*.csv||", None, "VolumeMassCentroids", "csv")
+                filename = rs.SaveFileName("Save csv file","*.csv||", None, "VolMassWeigCen", "csv")
                 file = open(filename, 'w')
-                headerline = "Object, Volume(%s), Mass(%s), Weight(N), Centroid(%s)[x], Centroid(%s)[y], Centroid(%s)[z]\n" %(volumeUnits, massUnits, lengthUnits, lengthUnits, lengthUnits)
+                headerline = "Object name, Volume(%s), Mass(%s), Weight(N), Centroid(%s)[x], Centroid(%s)[y], Centroid(%s)[z]\n" %(volumeUnits, massUnits, lengthUnits, lengthUnits, lengthUnits)
                 file.write(headerline)
+                index = 0
                 for i in range(len(objectsClosed)):
-                    objectIndex = i+1
+                    objectName = rs.ObjectName(objectsClosed[i])
+                    if not objectName:
+                        index += 1
+                        objectName = "obj%s" % (index)
                     volu = volumes[i]
                     mas = masses[i]
                     weig = weights[i]
                     x = centroids[i][0]
                     y = centroids[i][1]
                     z = centroids[i][2]
-                    line = "%i,%.3f,%.3f,%.3f,%.3f,%.3f,%.3f \n" %(objectIndex, volu, mas, weig, x,y,z)
+                    line = "%s,%.3f,%.3f,%.3f,%.3f,%.3f,%.3f \n" %(objectName, volu, mas, weig, x,y,z)
                     # adding an annotation text dot to Rhino:
                     rs.AddPoint(centroids[i])
-                    text = "obj%s" % (objectIndex)
-                    rs.AddTextDot(text, centroids[i])
+                    rs.AddTextDot(objectName, centroids[i])
                     file.write(line)
                 file.close()
                 print "Done"
@@ -137,8 +140,8 @@ def VolumeMassWeightCentroids(_materials, _densities):
             return
 
     else:
-        print "You did not choose appropriate or any objects. Function terminated"
+        print "You did not choose appropriate or any objects. Function terminated."
         return
 
-# function call
+
 VolumeMassWeightCentroids(materials, densities)
