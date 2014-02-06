@@ -1,7 +1,7 @@
 #*******************************************************************#
 #********* Surfaces/polysurfaces/extrusions height labeling ********#
 #********* by Djordje Spasic ***************************************#
-#********* issworld2000@yahoo.com  24-12-2013 **********************#
+#********* issworld2000@yahoo.com  24-Dec-2013 **********************#
 """
 Function populates surfaces, polysurfaces and extrusions with projected regular grid of points,
 and assign it's elevation as annotation text dot
