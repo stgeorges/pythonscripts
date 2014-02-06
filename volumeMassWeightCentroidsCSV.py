@@ -4,7 +4,7 @@
 #********* issworld2000@yahoo.com 28-01-2014 ***********************************************#
 
 """
-Function promts for user input on picking solid(s), and choosing their Material. Then asks for the name/location
+Function prompts for user input on picking solid(s), and choosing their Material. Then asks for the name/location
 where the .csv file will be saved. Exported .csv file consists of following information: Object number, Volume,
 Mass, Weight, Volume Centroid coordinates.
 
