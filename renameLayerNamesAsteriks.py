@@ -1,10 +1,10 @@
 #******************************************************************#
 #********* Rename layer names with/without asteriks symbol ********#
 #********* by Djordje Spasic **************************************#
-#********* issworld2000@yahoo.com  30-12-2013 *********************#
+#********* issworld2000@yahoo.com  30-Dec-2013 *********************#
 
 """
-These functions promt for user input on word/character within layer names which needs 
+These functions prompt for user input on word/character within layer names which needs 
 to be replaced. Convenient option includes asteriks symbol as a wildcard character. Example:
 
 -  current layers: Layer01, Layer02, Layer03
