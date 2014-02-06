@@ -1,7 +1,7 @@
 #*******************************************************************************************#
 #********* Export volume, mass, weight and volume centroid coordinates to .csv file ********#
 #********* by Djordje Spasic ***************************************************************#
-#********* issworld2000@yahoo.com 28-01-2014 ***********************************************#
+#********* issworld2000@yahoo.com 28-Jan-2014 ***********************************************#
 
 """
 Function prompts for user input on picking solid(s), and choosing their Material. Then asks for the name/location
