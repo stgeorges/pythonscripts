@@ -3,9 +3,11 @@
 #********* by Djordje Spasic ***************************************************************#
 #********* issworld2000@yahoo.com 05-Feb-2014 **********************************************#
 
-""" Function prompts for user input on picking polysurface extracts its naked edges (silhouette edges).
+""" Function does similarly to what Rhino command "Silhouette" does: but it has an option do distinguish
+the naked from interior curves, and join each of these.
+It prompts for user input on picking polysurface extracts its naked edges.
 They can be joined or not. Naked edges get coloured to red, and selected on the output. There's an option 
-to extract interior edges too - one only needs to edit the line 35 and replace "nakedE" with "interiorE". """
+to extract interior edges too - one only needs to edit the line 37 and replace "nakedE" with "interiorE". """
 
 import Rhino
 import rhinoscriptsyntax as rs
