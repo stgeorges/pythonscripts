@@ -19,7 +19,7 @@ def objectTopGroup(_id):
     for i in range(rs.GroupCount()):
         groupRO = sc.doc.Groups.GroupMembers(i)
         for ele in groupRO:
-            if rs.coercerhinoobject(ele).Id == _id:
+            if ele.Id == _id:
                 groupName = groupNames[i]
     if groupName:
         print groupName
