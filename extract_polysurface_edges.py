@@ -1,19 +1,16 @@
 #*******************************************************************************************#
-#********* Extracting polysurface naked edges (silhouette edges) ***************************#
+#********* Extracting surface/polysurface naked or interior edges **************************#
 #********* by Djordje Spasic ***************************************************************#
 #********* issworld2000@yahoo.com 05-Feb-2014 **********************************************#
 
-""" Function does similarly to what Rhino command "Silhouette" does: but it has an option do distinguish
-the naked from interior curves, and join each of these.
-It prompts for user input on picking polysurface extracts its naked edges.
-They can be joined or not. Naked edges get coloured to red, and selected on the output. There's an option 
-to extract interior edges too - one only needs to edit the line 37 and replace "nakedE" with "interiorE". """
+""" Function does similarly to what Rhino command "Silhouette" and rhinoscriptsyntax.DuplicateSurfaceBorder function do:
+but it has an option do generate both naked and interior curves, and join each of these. """
 
 import Rhino
 import rhinoscriptsyntax as rs
 import scriptcontext as sc
 
-def extractPolysrfEdges(_polysurface):
+def extractPolysrfEdges(_polysurface, _naked_interior, _join):
     if _polysurface:
         brep_o = rs.coercebrep(_polysurface)
         bEdges = brep_o.Edges
@@ -31,17 +28,20 @@ def extractPolysrfEdges(_polysurface):
                 else:
                     nonManifoldE.append(bEdge.DuplicateCurve())
 
-            join = rs.GetInteger("Do you wish to join the naked edges? Yes(1), No(0)", 1)
+            if _naked_interior == "Naked":
+                naked_or_InteriorCrvs = nakedE
+            elif _naked_interior =="Interior":
+                naked_or_InteriorCrvs = interiorE
             sel = []
-            if join > 0 or join < 0:
-                joinNaked = Rhino.Geometry.Curve.JoinCurves(nakedE)    # by replacing "nakedE" with "interiorE" one could get interior edges instead
+            if _join == "Yes" or _join == 1:
+                joinNaked = Rhino.Geometry.Curve.JoinCurves(naked_or_InteriorCrvs)
                 for crv in joinNaked:
                     crv_id = sc.doc.Objects.AddCurve(crv)
                     rs.ObjectColor(crv_id, [255,0,0])
                     sel.append(crv_id)
                 rs.SelectObjects(sel)
-            elif join == 0:
-                for crv in nakedE:
+            elif _join == "No" or _join == 0:
+                for crv in naked_or_InteriorCrvs:
                     crv_id = sc.doc.Objects.AddCurve(crv)
                     rs.ObjectColor(crv_id, [255,0,0])
                     sel.append(crv_id)
@@ -56,4 +56,12 @@ def extractPolysrfEdges(_polysurface):
 
 
 polysurface = rs.GetObject("Choose polysurface to extract the naked/interior edges", 16, preselect=True)
-extractPolysrfEdges(polysurface)
+naked_interior = rs.GetString("Extract Naked or Interior curves", "Naked", ["Naked" , "Interior"])
+if naked_interior == "Naked":
+    join = rs.GetString("Do you wish to join the naked edges?", "Yes", ["Yes" , "No"])
+    extractPolysrfEdges(polysurface, naked_interior, join)
+elif naked_interior == "Interior":
+    join = rs.GetString("Do you wish to join the interior edges?", "Yes", ["Yes" , "No"])
+    extractPolysrfEdges(polysurface,naked_interior, join)
+else:
+    print "You typed something wrong. Please choose either Naked or Interior option"
