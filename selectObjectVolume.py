@@ -1,10 +1,10 @@
-#*******************************************************************#
-#********* Select closed (solid) objects by Volume *****************#
-#********* by Djordje Spasic ***************************************#
-#********* issworld2000@yahoo.com 17-Aug-2014 **********************#
+#********************************************************************#
+#********* Select closed (solid) objects by Volume ******************#
+#********* by Djordje Spasic ****************************************#
+#********* issworld2000@yahoo.com 17-Aug-2014 ***********************#
 """
-Function prompts the user to enter the desired volume amount, and selects the closed (solid) object
-with closest amount of volume, to the entered one.
+Function prompts the user to enter the desired volume amount, and selects the
+closed (solid) object with closest amount of volume, to the entered one.
 """
 
 import rhinoscriptsyntax as rs
