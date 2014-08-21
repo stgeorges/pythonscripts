@@ -2,4 +2,4 @@ pythonscripts
 
 =================
 
-mixed PythonScript and RhinoCommon scripts for Rhino 5
+mixed pythonpcript and rhinocommon scripts for Rhino 5
