@@ -1,4 +1,5 @@
-rhinoscriptsyntax
+pythonscripts
+
 =================
 
-RhinoScript python content
+mixed PythonScript and RhinoCommon scripts for Rhino 5
