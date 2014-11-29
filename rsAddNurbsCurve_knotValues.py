@@ -5,7 +5,7 @@
 
 """
 rs.AddNurbsCurve rhinoscriptsyntax function simulates Rhino's "Curve" command.
-Still Rhino.Python Programmer's Reference help file nor online documentation does not have an example of knots values list generation.
+Rhino.Python Programmer's Reference help file nor online documentation does not have an example of knots vector values list generation, and this sometimes causes confussion with usage of rs.AddNurbsCurve.
 This function generates reparametarized curve's knots values, and control point's weights (1 by default, which Rhino's "Curve" command use too).
 It also checks for the curve's degree, and modifies it if not appropriate.
 
