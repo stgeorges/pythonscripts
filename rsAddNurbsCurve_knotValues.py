@@ -43,7 +43,7 @@ def knotsDegreeWeights(pts, degree=None):
 
 
 degree = 3    # by default
-pts = rs.GetObjects("Pick up the control points to draw the Nurbs curve")
+pts = rs.GetObjects("Pick up the control points to draw the Nurbs curve", 1, preselect=True)
 
 knots, degree, weights = knotsDegreeWeights(pts,degree)
 if knots:
