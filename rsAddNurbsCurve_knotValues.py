@@ -1,7 +1,7 @@
-#***************************************************************************************************#
+#***********************************************************************************************************#
 #********* Generate knots, weights and degree values for rhinoscriptsyntax rs.AddNurbsCurve function********#
-#********* by Djordje Spasic **************************************************************************#
-#********* issworld2000@yahoo.com 30-Nov-2014 *******************************************************#
+#********* by Djordje Spasic *******************************************************************************#
+#********* issworld2000@yahoo.com 30-Nov-2014 **************************************************************#
 
 """
 rs.AddNurbsCurve rhinoscriptsyntax function simulates Rhino's "Curve" command.
@@ -42,7 +42,7 @@ def knotsDegreeWeights(pts, degree=None):
     return knotsL, degree, weightsL
 
 
-degree = 3    # by default
+degree = 5    # Rhino's "Curve" command default
 pts = rs.GetObjects("Pick up the control points to draw the Nurbs curve", 1, preselect=True)
 
 knots, degree, weights = knotsDegreeWeights(pts,degree)
