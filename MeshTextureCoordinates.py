@@ -3,7 +3,7 @@
 #********* by Djordje Spasic *******************************************************************************#
 #********* issworld2000@yahoo.com 17-Feb-2015 **************************************************************#
 """
-Rhino 5 SR11 (and all older releases) still does not have RhinoScript MeshTextureCoordinates function implemented for PythonScript.
+Rhino 5 SR11 (and all older releases) still does not have RhinoScript "MeshTextureCoordinates" function implemented for PythonScript.
 MeshTextureCoordinates returns normalized (between 0 and 1) 2-D texture coordinates of a mesh object.  
 Small function bellow replicates this functionality.
 """
