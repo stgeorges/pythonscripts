@@ -108,6 +108,9 @@ def cullDuplicateCurves(_ids, _t, _tol, _flippedCrvs, _overlapped):
 t = 100000000
 tol = sc.doc.ModelAbsoluteTolerance
 ids = rs.GetObjects("Pick up the curves you would like to clean from duplicates", 4, preselect=True)
-flippedCrvs = rs.GetString("Consider flipped curves too?", "No", ["Yes" , "No"])
-overlapped = rs.GetString("Consider only overlapped (not those scattered around) curves?", "No", ["Yes" , "No"])
-cullDuplicateCurves(ids, t, tol, flippedCrvs, overlapped)
+if ids != None:
+    flippedCrvs = rs.GetString("Consider flipped curves too?", "No", ["Yes" , "No"])
+    overlapped = rs.GetString("Consider only overlapped (not those scattered around) curves?", "No", ["Yes" , "No"])
+    cullDuplicateCurves(ids, t, tol, flippedCrvs, overlapped)
+else:
+    print "No curves selected"
