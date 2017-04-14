@@ -1,10 +1,11 @@
 #**********************************************************************************************#
-#********* Export a point cloud to .ply file **************************************************#
+#********* Export point cloud(s) to .ply file **************************************************#
 #********* by Djordje Spasic ******************************************************************#
-#********* issworld2000@yahoo.com 16-Sep-2015 *************************************************#
+#********* issworld2000@yahoo.com 14-Apr-2017 *************************************************#
 
 """
-Rhino 5 can not export point clouds to .PLY format, which is what this function enables.
+Rhino 5 can not export point clouds to .PLY format.
+This function exports picked point clouds from Rhino as a single merged point cloud in .PLY format.
 Along with point coordinates, point cloud's colors and normals are exported to .PLY file too.
 The script is based on the suggestions by "JKolodner" user:
 https://discourse.mcneel.com/t/exporting-a-pointcloud-as-a-csv-file-with-colour/15254/22
@@ -14,12 +15,21 @@ import rhinoscriptsyntax as rs
 import System
 import Rhino
 
-def exportPtCloudDataToPLY(ptCloudId):
-    ptCloud = rs.coercegeometry(ptCloudId)
+def exportPtCloudDataToPLY(ptCloudIds):
+    # ply file path
     filePath = rs.SaveFileName("Save ply file","*.ply||", None, "exportPointCloudData", "ply")
-    if filePath == None: return
+    if filePath == None: 
+        print "You haven't picked a file name for the .ply file"
+        return
+    
+    # merge all picked point clouds
+    ptClouds = [rs.coercegeometry(id)  for id in ptCloudIds]
+    joinedPtCloud = Rhino.Geometry.PointCloud()
+    for ptCloud in ptClouds:
+        joinedPtCloud.Merge(ptCloud)
+    
     file = open(filePath, "w")
-    pts = ptCloud.GetPoints()
+    pts = joinedPtCloud.GetPoints()
     plyheader = """ply
 format ascii 1.0
 comment Author: point cloud PLY export, by Djordje Spasic
@@ -42,22 +52,21 @@ end_header\n""" % len(pts)
     defaultColor = System.Drawing.Color.FromArgb(0,0,0)   # black
     defaultNormal = Rhino.Geometry.Vector3d(0,0,1)   # z vector
     
-    if ptCloud.ContainsColors:
-        colors = ptCloud.GetColors()
+    if joinedPtCloud.ContainsColors:
+        colors = joinedPtCloud.GetColors()
     else:
         colors = [defaultColor for i in range(len(pts))]
-    if ptCloud.ContainsNormals:
-        normals = ptCloud.GetNormals()
+    if joinedPtCloud.ContainsNormals:
+        normals = joinedPtCloud.GetNormals()
     else:
         normals = [defaultNormal for i in range(len(pts))]
     
-    #for i in range(100):  # use for testing in case the point cloud is too large
     for i in range(len(pts)):
         line = "%.3f %.3f %.3f %.3f %.3f %.3f %s %s %s\n" %(pts[i].X, pts[i].Y, pts[i].Z, normals[i].X, normals[i].Y, normals[i].Z, colors[i].R, colors[i].G, colors[i].B)
         file.write(line)
     file.close()
     print "Point cloud data successfully exported to '%s' file." % filePath
 
-_ptCloudId = rs.GetObject("Pick up a point cloud", 2, True)
-if _ptCloudId:
-    exportPtCloudDataToPLY(_ptCloudId)
+_ptCloudIds = rs.GetObjects("Pick up point cloud(s) you wish to export as PLY", 2, True)
+if (_ptCloudIds) and (len(_ptCloudIds) > 0):
+    exportPtCloudDataToPLY(_ptCloudIds)
