@@ -6,6 +6,8 @@
 """
 Rhino 5 can not export point clouds to .PLY format, which is what this function enables.
 Along with point coordinates, point cloud's colors and normals are exported to .PLY file too.
+The script is based on the suggestions by "JKolodner" user:
+https://discourse.mcneel.com/t/exporting-a-pointcloud-as-a-csv-file-with-colour/15254/22
 """
 
 import rhinoscriptsyntax as rs
