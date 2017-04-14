@@ -49,8 +49,8 @@ end_header\n""" % len(pts)
     else:
         normals = [defaultNormal for i in range(len(pts))]
     
-    #for i in range(len(pts)):
-    for i in range(100):
+    #for i in range(100):  # use for testing in case the point cloud is too large
+    for i in range(len(pts)):
         line = "%.3f %.3f %.3f %.3f %.3f %.3f %s %s %s\n" %(pts[i].X, pts[i].Y, pts[i].Z, normals[i].X, normals[i].Y, normals[i].Z, colors[i].R, colors[i].G, colors[i].B)
         file.write(line)
     file.close()
