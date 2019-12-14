@@ -1,0 +1,72 @@
+
+# 14.12.2019 DSP
+# create a circle through first two tangent crvs, and the third one on which the circle center lies on
+# example shown at: https://discourse.mcneel.com/t/wish-add-circle-tangent-tangent-center-along-curve/93634
+
+import rhinoscriptsyntax as rs
+import Rhino.Geometry as rg
+import Rhino
+
+
+def CircleFromTwoTanCrvsAndCentCrv(crv1, crv2, crv3):
+    
+    # circCentPt
+    crv3_t_distance_sortTuple_LL = []
+    crv3.Domain = rg.Interval(0,100000)
+    for i in xrange(100001):
+        
+        ptOnCrv3 = crv3.PointAt(i)
+        
+        succ, t1 = crv1.ClosestPoint(ptOnCrv3)
+        ptOnCrv1closestTo_ptOnCrv3 = crv1.PointAt(t1)
+        distFromPtOnCrv3_toCrv1 = ptOnCrv1closestTo_ptOnCrv3.DistanceTo(ptOnCrv3)
+        
+        succ2, t2 = crv2.ClosestPoint(ptOnCrv3)
+        ptOnCrv2closestTo_ptOnCrv3 = crv2.PointAt(t2)
+        distFromPtOnCrv3_toCrv2 = ptOnCrv2closestTo_ptOnCrv3.DistanceTo(ptOnCrv3)
+        
+        divisor = max(distFromPtOnCrv3_toCrv1, distFromPtOnCrv3_toCrv2) / min(distFromPtOnCrv3_toCrv1, distFromPtOnCrv3_toCrv2)
+        crv3_t_distance_sortTuple_LL.append( [divisor, i] )
+        
+    crv3_t_distance_sortTuple_LL.sort()
+    
+    final_crv3_t = crv3_t_distance_sortTuple_LL[0][1]
+    circCenPt = crv3.PointAt(final_crv3_t)
+    
+    
+    # radius
+    succ3, t3 = crv1.ClosestPoint(circCenPt, 0)
+    circCenPt_closestPtOnCrv1 = crv1.PointAt(t3)
+    radius = circCenPt.DistanceTo(circCenPt_closestPtOnCrv1)
+    
+    
+    # circPln
+    succ4, t4 = crv2.ClosestPoint(circCenPt, 0)
+    circCenPt_closestPtOnCrv2 = crv2.PointAt(t4)
+    
+    
+    planeFitResult, circPln = rg.Plane.FitPlaneToPoints([circCenPt, circCenPt_closestPtOnCrv1, circCenPt_closestPtOnCrv2])
+    
+    if planeFitResult == rg.PlaneFitResult.Success:
+        circPln.Origin = circCenPt
+        circ = rg.Circle(circPln, radius)
+        
+        circ_id = Rhino.RhinoDoc.ActiveDoc.Objects.AddCircle(circ)
+    else:
+        print "something went wrong. Make sure that all three crvs do not overlap each other"
+        return
+
+
+
+
+ids = rs.GetObjects("select the first and the second curve the circle will touch. Then select the curve on which the circle radius will be located on.", 4)
+
+if (len(ids) != 3):
+    print "Three crvs are needed to be selected in order to create the circle"
+else:
+    crv1 = rs.coercegeometry(ids[0])
+    crv2 = rs.coercegeometry(ids[1])
+    crv3 = rs.coercegeometry(ids[2])
+    
+    circ_id = CircleFromTwoTanCrvsAndCentCrv(crv1, crv2, crv3)
+
